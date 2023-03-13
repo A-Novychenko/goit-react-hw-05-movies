@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { getMovies } from 'services/MoviesAPI';
+import { getMovieList } from 'services/MoviesAPI';
 
 export const MovieList = () => {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
     const getMovie = async () => {
-      const { results } = await getMovies();
+      const { results } = await getMovieList();
       setMovies(results);
     };
     getMovie();
