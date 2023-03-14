@@ -9,9 +9,14 @@ export const MovieDetail = () => {
 
   useEffect(() => {
     const fetchMovie = async () => {
-      const movieItem = await getMovie(movieId);
-      console.log('movieItem', movieItem);
-      setMovie(movieItem);
+      try {
+        const movieItem = await getMovie(movieId);
+        console.log('movieItem', movieItem);
+        setMovie(movieItem);
+      } catch (error) {
+        console.log(error);
+        //!!!!!!!!!!!!!!!!!!!!!!
+      }
     };
     fetchMovie();
     return () => {
@@ -28,7 +33,7 @@ export const MovieDetail = () => {
       {movie && (
         <>
           <section>
-            <img src={getImgPath(movie.poster_path)} alt="#" />
+            <img src={getImgPath(movie.poster_path)} alt={movie.title} />
             <div>
               <h2>{`${movie.title}${getYear(movie.release_date)}`}</h2>
               <p>{`User score: ${getUserScore(movie.vote_average)}%`}</p>

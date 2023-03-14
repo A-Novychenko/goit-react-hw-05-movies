@@ -15,9 +15,38 @@ export const getMovieList = async () => {
     console.log(error);
   }
 };
+
 export const getMovie = async id => {
   try {
     const resp = await axios.get(`movie/${id}`, {
+      params: {
+        api_key: API_KEY,
+      },
+    });
+
+    return resp.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getActors = async id => {
+  try {
+    const resp = await axios.get(`movie/${id}/credits`, {
+      params: {
+        api_key: API_KEY,
+      },
+    });
+
+    return resp.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getReviews = async id => {
+  try {
+    const resp = await axios.get(`movie/${id}/reviews`, {
       params: {
         api_key: API_KEY,
       },

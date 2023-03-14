@@ -7,8 +7,13 @@ export const MovieList = () => {
 
   useEffect(() => {
     const getMovie = async () => {
-      const { results } = await getMovieList();
-      setMovies(results);
+      try {
+        const { results } = await getMovieList();
+        setMovies(results);
+      } catch (error) {
+        console.log(error);
+        //!!!!!!!!!!!!!!!!!!!!!!
+      }
     };
     getMovie();
   }, []);
