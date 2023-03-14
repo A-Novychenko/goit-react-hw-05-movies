@@ -57,3 +57,22 @@ export const getReviews = async id => {
     console.log(error);
   }
 };
+
+export const getMovies = async query => {
+  try {
+    const resp = await axios.get(
+      `
+/search/movie`,
+      {
+        params: {
+          api_key: API_KEY,
+          query,
+        },
+      }
+    );
+
+    return resp.data;
+  } catch (error) {
+    console.log(error);
+  }
+};

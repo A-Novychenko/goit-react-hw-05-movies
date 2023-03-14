@@ -11,7 +11,7 @@ export const Reviews = () => {
       try {
         const reviews = await getReviews(movieId);
         console.log(' reviews.results', reviews.results);
-        console.log('reviews', reviews);
+        // console.log('reviews', reviews);
         setReviews(reviews.results);
       } catch (error) {
         console.log(error);
@@ -24,7 +24,7 @@ export const Reviews = () => {
     };
   }, [movieId]);
 
-  console.log('actors', reviews);
+  //   console.log('actors', reviews);
 
   return (
     <ul>
