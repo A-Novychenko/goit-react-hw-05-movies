@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getActors } from 'services/MoviesAPI';
 import { getImgPath } from 'utils';
+import NoImg from '../../img/NoImg.png';
 
 export const Cast = () => {
   const [actors, setActors] = useState(null);
@@ -28,15 +29,15 @@ export const Cast = () => {
   return (
     <ul>
       {actors &&
-        actors.map(actor => (
-          <li key={actor.id}>
+        actors.map(({ id, name, character, profile_path }) => (
+          <li key={id}>
             <img
-              src={getImgPath(actor.profile_path)}
-              alt={actor.name}
+              src={profile_path ? getImgPath(profile_path) : NoImg}
+              alt={name}
               width="160"
             />
-            <p>{actor.name}</p>
-            <p>{`Character ${actor.character}`}</p>
+            <p>{name}</p>
+            <p>{`Character ${character}`}</p>
           </li>
         ))}
     </ul>

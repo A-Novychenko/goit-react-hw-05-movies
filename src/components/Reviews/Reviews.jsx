@@ -1,16 +1,6 @@
-// export const Reviews = () => (
-//   <ul>
-//     <li>
-//       <h3>Author **</h3>
-//       <p>description</p>
-//     </li>
-//   </ul>
-// );
-
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getReviews } from 'services/MoviesAPI';
-// import { getImgPath } from 'utils';
 
 export const Reviews = () => {
   const [reviews, setReviews] = useState(null);
@@ -38,7 +28,13 @@ export const Reviews = () => {
 
   return (
     <ul>
+      {reviews && reviews.length === 0 && (
+        <li key={1}>
+          <p>There is no information about this film.</p>
+        </li>
+      )}
       {reviews &&
+        reviews.length !== 0 &&
         reviews.map(({ content, author_details: { username } }, index) => (
           <li key={index}>
             <h3>{`Author ${username}`}</h3>
