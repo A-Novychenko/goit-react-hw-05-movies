@@ -1,7 +1,7 @@
-import { getYear } from 'utils/formatDate';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, Outlet, useParams } from 'react-router-dom';
 import { getMovie } from 'services/MoviesAPI';
+import { getGenres, getUserScore, getImgPath, getYear } from 'utils';
 
 export const MovieDetail = () => {
   const [movie, setMovie] = useState(null);
@@ -26,14 +26,29 @@ export const MovieDetail = () => {
     <>
       <button>Go back</button>
       {movie && (
-        <div>
-          <h2>{`${movie.title}${getYear(movie.release_date)}`}</h2>
-          <img
-            src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
-            alt="#"
-          />
-          <p></p>
-        </div>
+        <>
+          <section>
+            <img src={getImgPath(movie.poster_path)} alt="#" />
+            <div>
+              <h2>{`${movie.title}${getYear(movie.release_date)}`}</h2>
+              <p>{`User score: ${getUserScore(movie.vote_average)}%`}</p>
+              <div>
+                <h3>Overview</h3>
+                <p>{movie.overview}</p>
+              </div>
+              <div>
+                <h3>Genres</h3>
+                <p>{getGenres(movie.genres)}</p>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h2>Addtional information</h2>
+            <Link to="cast">Cast</Link>
+            <Link to="reviews">Reviews</Link>
+            <Outlet />
+          </section>
+        </>
       )}
     </>
   );
