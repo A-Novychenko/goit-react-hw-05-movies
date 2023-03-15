@@ -12,9 +12,16 @@ export const Movies = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    // formState: { errors },
+    // formState: { isDirty, isValid, errors },
     // reset,
-  } = useForm();
+    // isSubmitSuccessful,
+  } = useForm({
+    mode: 'onChange',
+    defaultValues: {
+      firstName: '',
+    },
+  });
 
   const onSubmit = async ({ example }) => {
     try {
@@ -28,6 +35,12 @@ export const Movies = () => {
     }
   };
 
+  // useEffect(() => {
+  //   reset({
+  //     data: 'test',
+  //   });
+  // }, [isSubmitSuccessful, reset]);
+
   const uodateQueryStringr = query => {
     const nextParams = query !== '' ? { query } : {};
     setSearchParams(nextParams);
@@ -37,8 +50,6 @@ export const Movies = () => {
     <main>
       <form onSubmit={handleSubmit(onSubmit)}>
         <input defaultValue={example} {...register('example')} />
-
-        {errors.exampleRequired && <span>This field is required</span>}
         <input type="submit" />
       </form>
       {movies && <MovieList movies={movies}></MovieList>}
