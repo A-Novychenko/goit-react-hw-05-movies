@@ -17,6 +17,8 @@ export const MovieList = ({ movies, path = '' }) => {
     </>
   );
 };
+
+//
 // import { getMovieList } from 'services/MoviesAPI';
 
 // export const MovieList = () => {
