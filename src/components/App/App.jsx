@@ -7,6 +7,8 @@ import { Home } from 'pages/Home';
 import { Movies } from 'pages/Movies';
 import { Route, Routes } from 'react-router-dom';
 
+import { ToastContainer } from 'react-toastify';
+
 export const App = () => {
   return (
     <>
@@ -21,6 +23,18 @@ export const App = () => {
           <Route path="*" element={<Home />}></Route>
         </Route>
       </Routes>
+      <ToastContainer
+        position="top-left"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
       <GlobalStyle />
     </>
   );
