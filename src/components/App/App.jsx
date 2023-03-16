@@ -1,5 +1,5 @@
 import { Cast } from 'components/Cast';
-import { MovieDetail } from 'components/MovieDetail';
+import { MovieDetail } from 'components/MovieDetails';
 import { Reviews } from 'components/Reviews';
 import { SharedLayout } from 'components/SharedLayout';
 import { GlobalStyle } from 'constants/GlobalStyle';
