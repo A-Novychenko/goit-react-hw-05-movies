@@ -26,12 +26,26 @@ export const Movies = () => {
     try {
       const queryNormalise = query.toLowerCase().trim();
       const { results } = await getMovies(queryNormalise);
+
       setMovies(results);
       uodateQueryStringr(queryNormalise);
+      if (results.length === 0) {
+        return await Promise.reject(new Error(`" ${query} "`));
+      }
       reset();
     } catch (error) {
       console.log(error);
-      //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      toast.error(`${error.message} not found!`, {
+        position: 'top-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored',
+      });
+      reset();
     }
   };
 
@@ -39,29 +53,32 @@ export const Movies = () => {
     const nextParams = query !== '' ? { query } : {};
     setSearchParams(nextParams);
   };
-  // const notify = () =>
-  //   ;
-  // const notify = () => toast('This field is required!');
+
+  if (errors.query) {
+    toast.error('This field is required!', {
+      position: 'top-right',
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'colored',
+    });
+  }
 
   return (
     <main>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <input {...register('query', { required: 'query' })} />
+          <label>
+            <input
+              {...register('query', { required: 'query' })}
+              placeholder=" enter movie name"
+            />
+          </label>
           <button type="submit">search</button>
         </div>
-        {errors.query &&
-          toast.error('This field is required!', {
-            position: 'top-right',
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: 'colored',
-          })}
-        {/* {errors.query && <span>This field is required</span>} */}
       </form>
       {movies && <MovieList movies={movies}></MovieList>}
     </main>
