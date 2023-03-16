@@ -1,5 +1,5 @@
 import { MovieList } from 'components/MovieList';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSearchParams } from 'react-router-dom';
 import { getMovies } from 'services/MoviesAPI';
@@ -10,8 +10,8 @@ import 'react-toastify/dist/ReactToastify.css';
 export const Movies = () => {
   const [movies, setMovies] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
-  const example = searchParams.get('query') ?? '';
-  console.log('example', example);
+  const query = searchParams.get('query') ?? '';
+  console.log('query!!!!!!!!!!!', query);
 
   const {
     register,
@@ -22,32 +22,30 @@ export const Movies = () => {
     mode: 'onChange',
   });
 
-  const onSubmit = async ({ query }) => {
-    try {
-      const queryNormalise = query.toLowerCase().trim();
-      const { results } = await getMovies(queryNormalise);
-
-      setMovies(results);
-      uodateQueryStringr(queryNormalise);
-      if (results.length === 0) {
-        return await Promise.reject(new Error(`" ${query} "`));
-      }
-      reset();
-    } catch (error) {
-      console.log(error);
-      toast.error(`${error.message} not found!`, {
-        position: 'top-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'colored',
-      });
-      reset();
-    }
+  const onSubmit = ({ query }) => {
+    const queryNormalise = query.toLowerCase().trim();
+    uodateQueryStringr(queryNormalise);
+    reset();
   };
+
+  useEffect(() => {
+    if (!query) return;
+
+    const fetchMovies = async () => {
+      try {
+        console.log('firstQUERY', query);
+        const { results } = await getMovies(query);
+        setMovies(results);
+        if (results.length === 0) {
+          return await Promise.reject(new Error(`" ${query} "`));
+        }
+      } catch (error) {
+        toast.error(`${error.message} not found!`);
+        reset();
+      }
+    };
+    fetchMovies();
+  }, [query, reset]);
 
   const uodateQueryStringr = query => {
     const nextParams = query !== '' ? { query } : {};
@@ -55,16 +53,7 @@ export const Movies = () => {
   };
 
   if (errors.query) {
-    toast.error('This field is required!', {
-      position: 'top-right',
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: 'colored',
-    });
+    toast.error('This field is required!');
   }
 
   return (

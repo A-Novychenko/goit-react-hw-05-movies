@@ -1,17 +1,19 @@
-import { useEffect, useState } from 'react';
-import { Link, Outlet, useParams } from 'react-router-dom';
+import { useEffect, useState, useRef } from 'react';
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import { getMovie } from 'services/MoviesAPI';
 import { getGenres, getUserScore, getImgPath, getYear } from 'utils';
 
 export const MovieDetail = () => {
   const [movie, setMovie] = useState(null);
   const { movieId } = useParams();
+  const location = useLocation();
+  const backLink = useRef(location.state?.from ?? '/movies');
 
   useEffect(() => {
     const fetchMovie = async () => {
       try {
         const movieItem = await getMovie(movieId);
-        console.log('movieItem', movieItem);
+
         setMovie(movieItem);
       } catch (error) {
         console.log(error);
@@ -24,12 +26,10 @@ export const MovieDetail = () => {
       //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     };
   }, [movieId]);
-
-  console.log('movie', movie);
-
+  console.log('tttttttttt', backLink.current);
   return (
     <>
-      <button>Go back</button>
+      <Link to={backLink.current}>Go back</Link>
       {movie && (
         <>
           <section>
