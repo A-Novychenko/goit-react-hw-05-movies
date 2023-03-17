@@ -57,7 +57,7 @@ export const Movies = () => {
   }
 
   return (
-    <main>
+    <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label>
@@ -70,6 +70,6 @@ export const Movies = () => {
         </div>
       </form>
       {movies && <MovieList movies={movies}></MovieList>}
-    </main>
+    </>
   );
 };

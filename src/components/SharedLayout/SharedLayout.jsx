@@ -11,6 +11,10 @@ export const SharedLayout = () => (
         </Nav>
       </Container>
     </Header>
-    <Outlet />
+    <Container>
+      <main>
+        <Outlet />
+      </main>
+    </Container>
   </>
 );
