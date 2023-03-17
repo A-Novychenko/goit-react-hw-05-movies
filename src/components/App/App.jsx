@@ -1,5 +1,5 @@
 import { Cast } from 'components/Cast';
-import { MovieDetail } from 'components/MovieDetails';
+import { MoviePage } from 'pages/MoviePage';
 import { Reviews } from 'components/Reviews';
 import { SharedLayout } from 'components/SharedLayout';
 import { GlobalStyle } from 'constants/GlobalStyle';
@@ -16,7 +16,7 @@ export const App = () => {
         <Route path="/" element={<SharedLayout />}>
           <Route index element={<Home />}></Route>
           <Route path="movies" element={<Movies />} />
-          <Route path="movies/:movieId" element={<MovieDetail />}>
+          <Route path="movies/:movieId" element={<MoviePage />}>
             <Route path="cast" element={<Cast />} />
             <Route path="reviews" element={<Reviews />} />
           </Route>

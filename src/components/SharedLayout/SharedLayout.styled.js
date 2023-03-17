@@ -14,10 +14,11 @@ export const Container = styled.div`
 export const Header = styled.header`
   margin-bottom: 40px;
   padding: 40px;
+  background-color: green;
 
-  box-shadow: -1px 11px 5px 3px rgba(0, 0, 0, 0.75);
-  -webkit-box-shadow: -1px 11px 5px 3px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: -1px 11px 5px 3px rgba(0, 0, 0, 0.75);
+  box-shadow: 1px 25px 39px -9px rgba(0, 128, 0, 0.75);
+  -webkit-box-shadow: 1px 25px 39px -9px rgba(0, 128, 0, 0.75);
+  -moz-box-shadow: 1px 25px 39px -9px rgba(0, 128, 0, 0.75);
 `;
 export const Nav = styled.nav`
   display: flex;
@@ -36,6 +37,9 @@ export const NavLinkStyled = styled(NavLink)`
   text-decoration: none;
 
   &.active {
-    color: green;
+    color: white;
+    box-shadow: 0px -1px 13px 7px rgba(255, 255, 255, 0.54);
+    -webkit-box-shadow: 0px -1px 13px 7px rgba(255, 255, 255, 0.54);
+    -moz-box-shadow: 0px -1px 13px 7px rgba(255, 255, 255, 0.54);
   }
 `;

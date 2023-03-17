@@ -3,6 +3,16 @@ import { useParams } from 'react-router-dom';
 import { getActors } from 'services/MoviesAPI';
 import { getImgPath } from 'utils';
 import NoImg from '../../img/NoImg.png';
+import {
+  List,
+  Item,
+  Img,
+  Wrap,
+  Name,
+  Character,
+  ImgWrap,
+  Div,
+} from './Cast.Styled';
 
 export const Cast = () => {
   const [actors, setActors] = useState(null);
@@ -24,22 +34,25 @@ export const Cast = () => {
     };
   }, [movieId]);
 
-  //   console.log('actors', actors);
-
   return (
-    <ul>
+    <List>
       {actors &&
         actors.map(({ id, name, character, profile_path }) => (
-          <li key={id}>
-            <img
-              src={profile_path ? getImgPath(profile_path) : NoImg}
-              alt={name}
-              width="160"
-            />
-            <p>{name}</p>
-            <p>{`Character ${character}`}</p>
-          </li>
+          <Item key={id}>
+            <Div>
+              <ImgWrap>
+                <Img
+                  src={profile_path ? getImgPath(profile_path) : NoImg}
+                  alt={name}
+                />
+              </ImgWrap>
+              <Wrap>
+                <Name>{name}</Name>
+                <Character>{`Character ${character}`}</Character>
+              </Wrap>
+            </Div>
+          </Item>
         ))}
-    </ul>
+    </List>
   );
 };
