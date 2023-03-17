@@ -3,15 +3,14 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSearchParams } from 'react-router-dom';
 import { getMovies } from 'services/MoviesAPI';
-
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { SearchMovieForm } from 'components/SearchMovieForm';
 
 export const Movies = () => {
   const [movies, setMovies] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query') ?? '';
-  console.log('query!!!!!!!!!!!', query);
 
   const {
     register,
@@ -33,7 +32,6 @@ export const Movies = () => {
 
     const fetchMovies = async () => {
       try {
-        console.log('firstQUERY', query);
         const { results } = await getMovies(query);
         setMovies(results);
         if (results.length === 0) {
@@ -58,17 +56,7 @@ export const Movies = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <label>
-            <input
-              {...register('query', { required: 'query' })}
-              placeholder=" enter movie name"
-            />
-          </label>
-          <button type="submit">search</button>
-        </div>
-      </form>
+      <SearchMovieForm onSubmit={handleSubmit(onSubmit)} register={register} />
       {movies && <MovieList movies={movies}></MovieList>}
     </>
   );
