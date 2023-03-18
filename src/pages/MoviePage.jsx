@@ -4,7 +4,7 @@ import { TbArrowBackUp } from 'react-icons/tb';
 import { MovieDetails } from 'components/MovieDetails';
 import { getMovie } from 'services/MoviesAPI';
 
-export const MoviePage = () => {
+const MoviePage = () => {
   const [movie, setMovie] = useState(null);
   const { movieId } = useParams();
   const location = useLocation();
@@ -37,3 +37,4 @@ export const MoviePage = () => {
     </>
   );
 };
+export default MoviePage;

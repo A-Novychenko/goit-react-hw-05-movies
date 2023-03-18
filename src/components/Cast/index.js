@@ -1,2 +1,1 @@
-export * from './Cast';
-export * from './Cast.Styled';
+export { default } from './Cast';

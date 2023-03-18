@@ -7,7 +7,7 @@ import { SearchMovieForm } from 'components/SearchMovieForm';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export const Movies = () => {
+const Movies = () => {
   const [movies, setMovies] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query') ?? '';
@@ -63,3 +63,5 @@ export const Movies = () => {
     </>
   );
 };
+
+export default Movies;

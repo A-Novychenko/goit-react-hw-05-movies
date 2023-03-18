@@ -1,2 +1,1 @@
-export * from './Reviews';
-export * from './Reviews.styled';
+export { default } from './Reviews';

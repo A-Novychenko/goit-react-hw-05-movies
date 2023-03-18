@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import { getGenres, getUserScore, getImgPath, getYear } from 'utils';
 import {
@@ -42,7 +43,9 @@ export const MovieDetails = ({ movie }) => {
           <NavLinkStyled to="cast">Cast</NavLinkStyled>
           <NavLinkStyled to="reviews">Reviews</NavLinkStyled>
         </Btns>
-        <Outlet />
+        <Suspense fallback={<div>LOADING...</div>}>
+          <Outlet />
+        </Suspense>
       </Section>
     </>
   );

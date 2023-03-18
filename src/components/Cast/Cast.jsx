@@ -14,7 +14,7 @@ import {
   Div,
 } from './Cast.Styled';
 
-export const Cast = () => {
+const Cast = () => {
   const [actors, setActors] = useState(null);
   const { movieId } = useParams();
 
@@ -56,3 +56,5 @@ export const Cast = () => {
     </List>
   );
 };
+
+export default Cast;

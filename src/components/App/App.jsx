@@ -1,13 +1,15 @@
-import { Cast } from 'components/Cast';
-import { MoviePage } from 'pages/MoviePage';
-import { Reviews } from 'components/Reviews';
-import { SharedLayout } from 'components/SharedLayout';
-import { GlobalStyle } from 'constants/GlobalStyle';
-import { Home } from 'pages/Home';
-import { Movies } from 'pages/Movies';
+import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
-
 import { ToastContainer } from 'react-toastify';
+
+import { GlobalStyle } from 'constants/GlobalStyle';
+import { SharedLayout } from 'components/SharedLayout';
+
+const Home = lazy(() => import('pages/Home'));
+const Movies = lazy(() => import('pages/Movies'));
+const MoviePage = lazy(() => import('pages/MoviePage'));
+const Cast = lazy(() => import('components/Cast'));
+const Reviews = lazy(() => import('components/Reviews'));
 
 export const App = () => {
   return (
