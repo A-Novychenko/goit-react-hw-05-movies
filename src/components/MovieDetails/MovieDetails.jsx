@@ -13,25 +13,39 @@ import {
   Btns,
   SubTitleCenter,
 } from './MovieDetails.styled';
+import NoImg from '../../img/NoImg.png';
+import { LineWave } from 'react-loader-spinner';
 
-export const MovieDetails = ({ movie }) => {
+export const MovieDetails = ({
+  movie: { poster_path, title, release_date, vote_average, overview, genres },
+}) => {
   return (
     <>
       <Section>
         <Wrapper>
-          <Img src={getImgPath(movie.poster_path)} alt={movie.title} />
+          <Img
+            // src={getImgPath(movie.poster_path)}
+            src={poster_path ? getImgPath(poster_path) : NoImg}
+            alt={title}
+          />
 
           <div>
-            <Title>{`${movie.title}${getYear(movie.release_date)}`}</Title>
-            <Score>{`User score: ${getUserScore(movie.vote_average)}%`}</Score>
-            <Inner>
-              <SubTitle>Overview</SubTitle>
-              <p>{movie.overview}</p>
-            </Inner>
-            <Inner>
-              <SubTitle>Genres</SubTitle>
-              <p>{getGenres(movie.genres)}</p>
-            </Inner>
+            <Title>{`${title}${
+              release_date ? getYear(release_date) : ''
+            }`}</Title>
+            <Score>{`User score: ${getUserScore(vote_average)}%`}</Score>
+            {overview && (
+              <Inner>
+                <SubTitle>Overview</SubTitle>
+                <p>{overview}</p>
+              </Inner>
+            )}
+            {genres.length !== 0 && (
+              <Inner>
+                <SubTitle>Genres</SubTitle>
+                <p>{getGenres(genres)}</p>
+              </Inner>
+            )}
           </div>
         </Wrapper>
       </Section>
@@ -43,7 +57,22 @@ export const MovieDetails = ({ movie }) => {
           <NavLinkStyled to="cast">Cast</NavLinkStyled>
           <NavLinkStyled to="reviews">Reviews</NavLinkStyled>
         </Btns>
-        <Suspense fallback={<div>LOADING...</div>}>
+        <Suspense
+          fallback={
+            <LineWave
+              height="100"
+              width="100"
+              color="#4fa94d"
+              ariaLabel="line-wave"
+              wrapperStyle={{}}
+              wrapperClass=""
+              visible={true}
+              firstLineColor=""
+              middleLineColor=""
+              lastLineColor=""
+            />
+          }
+        >
           <Outlet />
         </Suspense>
       </Section>

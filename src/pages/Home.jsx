@@ -4,15 +4,20 @@ import { MovieList } from 'components/MovieList';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
+    setError(false);
     const getMovie = async () => {
       try {
         const { results } = await getMovieList();
+
+        if (!results) {
+          return await Promise.reject(new Error(`" Not found "`));
+        }
         setMovies(results);
       } catch (error) {
-        console.log(error);
-        //!!!!!!!!!!!!!!!!!!!!!!
+        setError(true);
       }
     };
     getMovie();
@@ -20,7 +25,12 @@ const Home = () => {
   return (
     <>
       <h1>Trending today</h1>
-      <MovieList movies={movies} path={'movies/'} />
+      {error && (
+        <h2 style={{ color: 'red', fontSize: 20 }}>
+          Oops, mistake! Please try again
+        </h2>
+      )}
+      {!error && <MovieList movies={movies} path={'movies/'} />}
     </>
   );
 };

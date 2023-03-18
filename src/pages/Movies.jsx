@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { Circles } from 'react-loader-spinner';
 import { getMovies } from 'services/MoviesAPI';
 import { MovieList } from 'components/MovieList';
 import { SearchMovieForm } from 'components/SearchMovieForm';
@@ -9,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Movies = () => {
   const [movies, setMovies] = useState(null);
+  const [isLoading, setIsloading] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query') ?? '';
 
@@ -23,7 +25,7 @@ const Movies = () => {
 
   useEffect(() => {
     if (!query) return;
-
+    setIsloading(true);
     const fetchMovies = async () => {
       try {
         const { results } = await getMovies(query);
@@ -36,6 +38,8 @@ const Movies = () => {
         reset();
         setSearchParams({});
         setMovies(null);
+      } finally {
+        setIsloading(false);
       }
     };
     fetchMovies();
@@ -59,6 +63,24 @@ const Movies = () => {
   return (
     <>
       <SearchMovieForm onSubmit={handleSubmit(onSubmit)} register={register} />
+      {isLoading && (
+        <Circles
+          height="300"
+          width="300"
+          color="#4fa94d"
+          ariaLabel="circles-loading"
+          wrapperStyle={{
+            display: 'flex',
+            justifyContent: 'center',
+            position: 'fixed',
+            top: '150px',
+            left: '50%',
+            transform: 'translate(-50%)',
+          }}
+          wrapperClass=""
+          visible={true}
+        />
+      )}
       {movies && <MovieList movies={movies}></MovieList>}
     </>
   );
