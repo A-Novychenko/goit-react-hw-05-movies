@@ -13,7 +13,7 @@ import {
   SubTitleCenter,
 } from './MovieDetails.styled';
 
-export const MovieDetail = ({ movie }) => {
+export const MovieDetails = ({ movie }) => {
   return (
     <>
       <Section>

@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { TbArrowBackUp } from 'react-icons/tb';
-import { MovieDetail } from 'components/MovieDetails';
+import { MovieDetails } from 'components/MovieDetails';
 import { getMovie } from 'services/MoviesAPI';
 
 export const MoviePage = () => {
@@ -27,13 +27,13 @@ export const MoviePage = () => {
       //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     };
   }, [movieId]);
-  console.log('tttttttttt', movie);
+  console.log('tttttttttt', backLink);
   return (
     <>
       <Link to={backLink.current}>
         <TbArrowBackUp size={40} color={'green'} />
       </Link>
-      {movie && <MovieDetail movie={movie}></MovieDetail>}
+      {movie && <MovieDetails movie={movie} />}
     </>
   );
 };

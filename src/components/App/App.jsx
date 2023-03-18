@@ -25,8 +25,8 @@ export const App = () => {
       </Routes>
       <ToastContainer
         position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
+        autoClose={2000}
+        hideProgressBar={true}
         newestOnTop={false}
         closeOnClick
         rtl={false}
