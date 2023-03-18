@@ -25,17 +25,18 @@ const Movies = () => {
 
   useEffect(() => {
     if (!query) return;
+    const abortController = new AbortController();
     setIsloading(true);
     const fetchMovies = async () => {
       try {
-        const { results } = await getMovies(query);
+        const { results } = await getMovies(query, abortController.signal);
         if (results.length === 0) {
           return await Promise.reject(new Error(`" ${query} "`));
         }
         setMovies(results);
       } catch (error) {
-        toast.error(`${error.message} not found!`);
-        reset();
+        // toast.error(`${error.message} not found!`);
+        // reset();
         setSearchParams({});
         setMovies(null);
       } finally {
@@ -43,7 +44,11 @@ const Movies = () => {
       }
     };
     fetchMovies();
-  }, [query, reset, setSearchParams]);
+    return () => {
+      abortController.abort();
+    };
+  }, [query, setSearchParams]);
+  // }, [query, reset, setSearchParams]);
 
   const uodateQueryStringr = query => {
     const nextParams = query !== '' ? { query } : {};

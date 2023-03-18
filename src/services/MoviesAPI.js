@@ -59,11 +59,12 @@ export const getReviews = async id => {
   }
 };
 
-export const getMovies = async query => {
+export const getMovies = async (query, signal) => {
   try {
     const resp = await axios.get(
       `
 /search/movie`,
+      signal,
       {
         params: {
           api_key: API_KEY,
