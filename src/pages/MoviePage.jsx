@@ -16,23 +16,25 @@ const MoviePage = () => {
   useEffect(() => {
     setError(false);
     setIsloading(true);
+    const abortController = new AbortController();
+
     const fetchMovie = async () => {
       try {
-        const movieItem = await getMovie(movieId);
+        const movieItem = await getMovie(movieId, abortController.signal);
         if (!movieItem) {
+          setError(true);
           return await Promise.reject(new Error(`" Not found "`));
         }
         setMovie(movieItem);
-      } catch (error) {
-        setError(true);
+      } catch {
       } finally {
         setIsloading(false);
       }
     };
+
     fetchMovie();
     return () => {
-      'abort';
-      //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      abortController.abort();
     };
   }, [movieId]);
 

@@ -25,16 +25,19 @@ const Cast = () => {
     setError(false);
     setIsloading(true);
     setActors(null);
+
+    const abortController = new AbortController();
+
     const fetchActors = async () => {
       try {
-        const actors = await getActors(movieId);
+        const actors = await getActors(movieId, abortController.signal);
 
         if (actors.cast.length === 0) {
+          setError(true);
           return await Promise.reject(new Error(`" Not found "`));
         }
         setActors(actors.cast);
-      } catch (error) {
-        setError(true);
+      } catch {
       } finally {
         setIsloading(false);
       }
@@ -42,10 +45,11 @@ const Cast = () => {
     fetchActors();
 
     return () => {
-      //abort fetch
+      abortController.abort();
     };
   }, [movieId]);
   console.log('actors', actors);
+
   return (
     <>
       {isLoading && (

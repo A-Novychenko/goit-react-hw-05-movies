@@ -5,12 +5,14 @@ import { Circles } from 'react-loader-spinner';
 import { getMovies } from 'services/MoviesAPI';
 import { MovieList } from 'components/MovieList';
 import { SearchMovieForm } from 'components/SearchMovieForm';
+import { ToastContainer } from 'react-toastify';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Movies = () => {
   const [movies, setMovies] = useState(null);
   const [isLoading, setIsloading] = useState(false);
+  const [error, setError] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
   const query = searchParams.get('query') ?? '';
 
@@ -25,20 +27,21 @@ const Movies = () => {
 
   useEffect(() => {
     if (!query) return;
+
     const abortController = new AbortController();
     setIsloading(true);
     const fetchMovies = async () => {
       try {
+        setError(null);
         const { results } = await getMovies(query, abortController.signal);
         if (results.length === 0) {
+          setSearchParams({});
+          setMovies(null);
           return await Promise.reject(new Error(`" ${query} "`));
         }
         setMovies(results);
       } catch (error) {
-        // toast.error(`${error.message} not found!`);
-        // reset();
-        setSearchParams({});
-        setMovies(null);
+        setError(error.message);
       } finally {
         setIsloading(false);
       }
@@ -48,7 +51,6 @@ const Movies = () => {
       abortController.abort();
     };
   }, [query, setSearchParams]);
-  // }, [query, reset, setSearchParams]);
 
   const uodateQueryStringr = query => {
     const nextParams = query !== '' ? { query } : {};
@@ -63,6 +65,10 @@ const Movies = () => {
 
   if (errors.query) {
     toast.error('This field is required!');
+  }
+
+  if (error && !errors.query) {
+    toast.error(`${error} not found!`);
   }
 
   return (
@@ -87,6 +93,18 @@ const Movies = () => {
         />
       )}
       {movies && <MovieList movies={movies}></MovieList>}
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </>
   );
 };

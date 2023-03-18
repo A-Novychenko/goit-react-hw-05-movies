@@ -14,16 +14,18 @@ const Reviews = () => {
     setError(false);
     setIsloading(true);
 
+    const abortController = new AbortController();
+
     const fetchReviews = async () => {
       try {
-        const reviews = await getReviews(movieId);
+        const reviews = await getReviews(movieId, abortController.signal);
 
         if (reviews.results.length === 0) {
+          setError(true);
           return await Promise.reject(new Error(`" Not found "`));
         }
         setReviews(reviews.results);
-      } catch (error) {
-        setError(true);
+      } catch {
       } finally {
         setIsloading(false);
       }
@@ -31,7 +33,7 @@ const Reviews = () => {
     fetchReviews();
 
     return () => {
-      //abort fetch
+      abortController.abort();
     };
   }, [movieId]);
 

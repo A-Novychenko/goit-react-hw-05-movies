@@ -1,6 +1,5 @@
 import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { ToastContainer } from 'react-toastify';
 
 import { GlobalStyle } from 'constants/GlobalStyle';
 import { SharedLayout } from 'components/SharedLayout';
@@ -25,18 +24,6 @@ export const App = () => {
           <Route path="*" element={<Home />}></Route>
         </Route>
       </Routes>
-      <ToastContainer
-        position="top-right"
-        autoClose={2000}
-        hideProgressBar={true}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="colored"
-      />
       <GlobalStyle />
     </>
   );

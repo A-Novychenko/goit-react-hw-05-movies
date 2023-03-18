@@ -17,9 +17,10 @@ export const getMovieList = async signal => {
   }
 };
 
-export const getMovie = async id => {
+export const getMovie = async (id, signal) => {
   try {
     const resp = await axios.get(`movie/${id}`, {
+      signal,
       params: {
         api_key: API_KEY,
       },
@@ -31,9 +32,10 @@ export const getMovie = async id => {
   }
 };
 
-export const getActors = async id => {
+export const getActors = async (id, signal) => {
   try {
     const resp = await axios.get(`movie/${id}/credits`, {
+      signal,
       params: {
         api_key: API_KEY,
       },
@@ -45,9 +47,10 @@ export const getActors = async id => {
   }
 };
 
-export const getReviews = async id => {
+export const getReviews = async (id, signal) => {
   try {
     const resp = await axios.get(`movie/${id}/reviews`, {
+      signal,
       params: {
         api_key: API_KEY,
       },
@@ -64,8 +67,9 @@ export const getMovies = async (query, signal) => {
     const resp = await axios.get(
       `
 /search/movie`,
-      signal,
+
       {
+        signal,
         params: {
           api_key: API_KEY,
           query,
