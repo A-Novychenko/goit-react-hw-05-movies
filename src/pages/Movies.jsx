@@ -26,13 +26,13 @@ const Movies = () => {
   });
 
   useEffect(() => {
+    setError(null);
     if (!query) return;
 
     const abortController = new AbortController();
     setIsloading(true);
     const fetchMovies = async () => {
       try {
-        setError(null);
         const { results } = await getMovies(query, abortController.signal);
         if (results.length === 0) {
           setSearchParams({});
@@ -42,8 +42,7 @@ const Movies = () => {
         }
         setMovies(results);
       } catch (error) {
-        // setError(error.message);
-        toast.error(`${error.message} not found!`);
+        setError(error.message);
       } finally {
         setIsloading(false);
       }
@@ -52,7 +51,7 @@ const Movies = () => {
     return () => {
       abortController.abort();
     };
-  }, [query, setSearchParams]);
+  }, [errors.query, query, setSearchParams]);
 
   const uodateQueryStringr = query => {
     const nextParams = query !== '' ? { query } : {};
@@ -69,9 +68,9 @@ const Movies = () => {
     toast.error('This field is required!');
   }
 
-  // if (error && !errors.query) {
-  //   toast.error(`${error} not found!`);
-  // }
+  if (error && !errors.query) {
+    toast.error(`${error} not found!`);
+  }
 
   return (
     <>
