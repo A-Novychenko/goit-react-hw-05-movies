@@ -37,11 +37,13 @@ const Movies = () => {
         if (results.length === 0) {
           setSearchParams({});
           setMovies(null);
+          setError(true);
           return await Promise.reject(new Error(`" ${query} "`));
         }
         setMovies(results);
       } catch (error) {
-        setError(error.message);
+        // setError(error.message);
+        toast.error(`${error.message} not found!`);
       } finally {
         setIsloading(false);
       }
@@ -67,14 +69,14 @@ const Movies = () => {
     toast.error('This field is required!');
   }
 
-  if (error && !errors.query) {
-    toast.error(`${error} not found!`);
-  }
+  // if (error && !errors.query) {
+  //   toast.error(`${error} not found!`);
+  // }
 
   return (
     <>
       <SearchMovieForm onSubmit={handleSubmit(onSubmit)} register={register} />
-      {isLoading && (
+      {isLoading && !error && (
         <Circles
           height="300"
           width="300"
@@ -92,7 +94,7 @@ const Movies = () => {
           visible={true}
         />
       )}
-      {movies && <MovieList movies={movies}></MovieList>}
+      {movies && !error && <MovieList movies={movies}></MovieList>}
       <ToastContainer
         position="top-right"
         autoClose={2000}
