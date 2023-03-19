@@ -48,7 +48,6 @@ const Cast = () => {
       abortController.abort();
     };
   }, [movieId]);
-  console.log('actors', actors);
 
   return (
     <>

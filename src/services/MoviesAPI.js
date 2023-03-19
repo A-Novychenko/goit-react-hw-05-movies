@@ -12,9 +12,7 @@ export const getMovieList = async signal => {
     });
 
     return resp.data;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch {}
 };
 
 export const getMovie = async (id, signal) => {
@@ -27,9 +25,7 @@ export const getMovie = async (id, signal) => {
     });
 
     return resp.data;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch {}
 };
 
 export const getActors = async (id, signal) => {
@@ -42,9 +38,7 @@ export const getActors = async (id, signal) => {
     });
 
     return resp.data;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch {}
 };
 
 export const getReviews = async (id, signal) => {
@@ -57,9 +51,7 @@ export const getReviews = async (id, signal) => {
     });
 
     return resp.data;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch {}
 };
 
 export const getMovies = async (query, signal) => {
@@ -78,7 +70,5 @@ export const getMovies = async (query, signal) => {
     );
 
     return resp.data;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch {}
 };
