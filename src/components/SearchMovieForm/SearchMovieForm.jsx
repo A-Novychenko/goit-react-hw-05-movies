@@ -1,5 +1,6 @@
 import { TfiSearch } from 'react-icons/tfi';
 import { Form, Input, Button } from './SearchMovieForm.styled';
+import PropTypes from 'prop-types';
 
 export const SearchMovieForm = ({ onSubmit, register }) => (
   <Form onSubmit={onSubmit}>
@@ -14,3 +15,8 @@ export const SearchMovieForm = ({ onSubmit, register }) => (
     </Button>
   </Form>
 );
+
+SearchMovieForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
+};

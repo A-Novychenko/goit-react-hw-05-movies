@@ -15,6 +15,7 @@ import {
 } from './MovieDetails.styled';
 import NoImg from '../../img/NoImg.png';
 import { LineWave } from 'react-loader-spinner';
+import PropTypes from 'prop-types';
 
 export const MovieDetails = ({
   movie: { poster_path, title, release_date, vote_average, overview, genres },
@@ -24,7 +25,6 @@ export const MovieDetails = ({
       <Section>
         <Wrapper>
           <Img
-            // src={getImgPath(movie.poster_path)}
             src={poster_path ? getImgPath(poster_path) : NoImg}
             alt={title}
           />
@@ -78,4 +78,19 @@ export const MovieDetails = ({
       </Section>
     </>
   );
+};
+
+MovieDetails.propTypes = {
+  movie: PropTypes.shape({
+    poster_path: PropTypes.string,
+    title: PropTypes.string.isRequired,
+    release_date: PropTypes.string,
+    vote_average: PropTypes.number.isRequired,
+    overview: PropTypes.string,
+    genres: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string,
+      })
+    ),
+  }),
 };
