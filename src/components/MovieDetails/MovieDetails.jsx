@@ -34,12 +34,14 @@ export const MovieDetails = ({
               release_date ? getYear(release_date) : ''
             }`}</Title>
             <Score>{`User score: ${getUserScore(vote_average)}%`}</Score>
+
             {overview && (
               <Inner>
                 <SubTitle>Overview</SubTitle>
                 <p>{overview}</p>
               </Inner>
             )}
+
             {genres.length !== 0 && (
               <Inner>
                 <SubTitle>Genres</SubTitle>
@@ -49,6 +51,7 @@ export const MovieDetails = ({
           </div>
         </Wrapper>
       </Section>
+
       <Section>
         <SubTitleCenter>
           <SubTitle>Addtional information</SubTitle>
