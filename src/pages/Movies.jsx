@@ -31,6 +31,7 @@ const Movies = () => {
 
     const abortController = new AbortController();
     setIsloading(true);
+
     const fetchMovies = async () => {
       try {
         const { results } = await getMovies(query, abortController.signal);
