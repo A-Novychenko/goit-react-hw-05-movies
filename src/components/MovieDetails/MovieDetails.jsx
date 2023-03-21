@@ -1,5 +1,7 @@
 import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
+import { LineWave } from 'react-loader-spinner';
+import PropTypes from 'prop-types';
 import { getGenres, getUserScore, getImgPath, getYear } from 'utils';
 import {
   Section,
@@ -14,8 +16,6 @@ import {
   SubTitleCenter,
 } from './MovieDetails.styled';
 import NoImg from '../../img/NoImg.png';
-import { LineWave } from 'react-loader-spinner';
-import PropTypes from 'prop-types';
 
 export const MovieDetails = ({
   movie: { poster_path, title, release_date, vote_average, overview, genres },
